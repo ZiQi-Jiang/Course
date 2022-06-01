@@ -56,7 +56,7 @@ class GoWestAgent(Agent):
 #######################################################
 # This portion is written for you, but will only work #
 #       after you fill in parts of search.py          #
-#######################################################
+#######################################################【【【【【【【【【【【【【】=【】========-===========================】=【【【【【==============================================================
 
 class SearchAgent(Agent):
     """
@@ -239,7 +239,7 @@ class StayEastSearchAgent(SearchAgent):
     """
     def __init__(self):
         self.searchFunction = search.uniformCostSearch
-        costFn = lambda pos: .5 ** pos[0]
+        costFn = lambda pos: .5 ** pos[0] # 横坐标越大越好 ==》 向东
         self.searchType = lambda state: PositionSearchProblem(state, costFn, (1, 1), None, False)
 
 class StayWestSearchAgent(SearchAgent):
@@ -251,7 +251,7 @@ class StayWestSearchAgent(SearchAgent):
     """
     def __init__(self):
         self.searchFunction = search.uniformCostSearch
-        costFn = lambda pos: 2 ** pos[0]
+        costFn = lambda pos: 2 ** pos[0] #横坐标越小越好 ==》 向西
         self.searchType = lambda state: PositionSearchProblem(state, costFn)
 
 def manhattanHeuristic(position, problem, info={}):

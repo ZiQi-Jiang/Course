@@ -18,7 +18,7 @@ Pacman agents (in searchAgents.py).
 """
 
 import util
-
+#在searchAgents里面定义了子类实现这些抽象函数
 class SearchProblem:
     """
     This class outlines the structure of a search problem, but doesn't implement
@@ -87,16 +87,103 @@ def depthFirstSearch(problem: SearchProblem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
     "*** YOUR CODE HERE ***"
+    closed_list = []
+    stack = util.Stack()
+
+    start_state = problem.getStartState() # ( (x,y), Direction, cost)
+    closed_list.append(start_state)
+
+    actions = problem.getSuccessors(start_state)
+    for action in actions:
+        stack.push((action,[])) # (A,B): A is the action you can take at current state, and B is the path to current state.
+    ########################### HOW to Stort the Path ########################
+    # When DFS is Done, at each depth, the rightest node is on the path.
+    #########################################################################
+    while not stack.isEmpty():
+        action,path = stack.pop() # get an action
+
+        state = action[0] # get the state when apply the action
+        if state not in closed_list:
+            closed_list.append(state) # add the state to close list
+        else:
+            continue
+        new_path = path[:] # you need to copy the path!!!
+        new_path.append(action[1])
+        # check the goal
+        if problem.isGoalState(state):
+            return new_path
+        actions = problem.getSuccessors(state) # get the successors
+        for action in actions:
+            stack.push((action,new_path))
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem: SearchProblem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
+    closed_list = []
+    queue = util.Queue()
+    start_state = problem.getStartState()  # ( (x,y), Direction, cost)
+    closed_list.append(start_state)
+
+    actions = problem.getSuccessors(start_state)
+    for action in actions:
+        queue.push(
+            (action, []))  # (A,B): A is the action you can take at current state, and B is the path to current state.
+    ########################### HOW to Stort the Path ########################
+    # When DFS is Done, at each depth, the rightest node is on the path.
+    #########################################################################
+    while not queue.isEmpty():
+        action, path = queue.pop()  # get an action
+
+        state = action[0]  # get the state when apply the action
+        if state not in closed_list:
+            closed_list.append(state)  # add the state to close list
+        else:
+            continue
+        new_path = path[:]  # you need to copy the path!!!
+        new_path.append(action[1])
+        # check the goal
+        if problem.isGoalState(state):
+            return new_path
+        actions = problem.getSuccessors(state)  # get the successors
+        for action in actions:
+            # if action[0] not in closed_list:
+            queue.push((action, new_path))
     util.raiseNotDefined()
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
+    closed_list = []
+    queue = util.PriorityQueue()
+    start_state = problem.getStartState()  # ( (x,y), Direction, cost)
+    closed_list.append(start_state)
+
+    actions = problem.getSuccessors(start_state)
+    for action in actions:
+        queue.update(
+            (action, []),action[2])  #item: (action, path)
+    ########################### HOW to Stort the Path ########################
+    # When DFS is Done, at each depth, the rightest node is on the path.
+    #########################################################################
+    while not queue.isEmpty():
+        action, path = queue.pop()  # get an action
+
+        state = action[0]  # get the state when apply the action
+        if state not in closed_list:
+            closed_list.append(state)  # add the state to close list
+        else:
+            continue
+        new_path = path[:]  # you need to copy the path!!!
+        new_path.append(action[1])
+        # check the goal
+        if problem.isGoalState(state):
+            return new_path
+        actions = problem.getSuccessors(state)  # get the successors
+        for new_action in actions:
+            # if action[0] not in closed_list:
+            cost = new_action[2] + action[2]
+            queue.update(((new_action[0],new_action[1],cost), new_path),cost)
     util.raiseNotDefined()
 
 def nullHeuristic(state, problem=None):
