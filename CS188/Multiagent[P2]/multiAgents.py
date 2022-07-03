@@ -84,34 +84,21 @@ class ReflexAgent(Agent):
         newGhostStates = successorGameState.getGhostStates()
         newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
 
-        "*** YOUR CODE HERE ***"
-        # 求出最近的鬼怪，计算危险值
         newGhostDists =[manhattanDistance(newPos, ghostState.configuration.pos) for ghostState in newGhostStates]
-        # 为了让吃豆人不要总是躲着鬼怪，我们只考虑距离2步以内的鬼怪造成的影响
-        # 为什么取-20？因为接下来我会把豆豆的启发值设置在10以内，两者相加一定为负数，这样就可以抵消豆豆对吃豆人的诱惑，^_^
-        # 为什么不是-10？因为如果下一步直接吃到豆豆，那个successorGameState.getScore()会算上吃到豆豆的10分
-        # dangerScore = -20 if nearestGhost < 2 else 0
+
         dangerScore = 0
-        # if min(newScaredTimes) > 0: dangerScore = 3/nearestGhost
         for i in range(len(newScaredTimes)):
             if newScaredTimes[i] == 0:
                 score = -1000 if newGhostDists[i] < 2 else 0
             else:
                 score = 1000/newGhostDists[i]
             dangerScore +=score
-        # 如果豆豆还没有吃光，用最近的豆豆的坐标计算出一个启发值，优先考虑吃掉最近的豆豆
-        # 这个程序从字面上看，是用曼哈顿距离计算启发值，所以如果吃豆人和豆豆之间有墙的话……吃豆人就卡在墙后面了
-        # 但是，又因为有鬼怪的存在，它会驱动吃豆人离开卡死在墙后面的状态，勉强算是通过测试了
         if len(newFood.asList()) > 0:
             nearestFood = (min([manhattanDistance(newPos, food) for food in newFood.asList()]))
-            # 为什么启发值是“9/距离”呢？因为按照我的设计，这个值不能为负数，负数用来表示下一步可能遇到鬼怪
-            # 同时，因为吃到隔壁的豆豆得9分(移动需要扣1分)，且距离越远启发值越小，按照这些规则，我就设计了这样一个启发函数
-            # 如果下一个豆豆就在隔壁，距离为1，那么启发值为9，且距离放在分母，其值越大，启发值就越小，OK！
             foodHeuristic =  5/ (nearestFood)
         else:
             foodHeuristic = 0
 
-        # 把计算好的各种值加起来，并返回
         # print("Action:",action,"Score:",successorGameState.getScore(),"Danger:",dangerScore,"Food:",foodHeuristic,"Total:",successorGameState.getScore()+foodHeuristic+dangerScore)
         return successorGameState.getScore() + foodHeuristic + dangerScore
 
@@ -344,54 +331,25 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
         util.raiseNotDefined()
 
 def betterEvaluationFunction(currentGameState: GameState):
-    """
-    Your extreme ghost-hunting, pellet-nabbing, food-gobbling, unstoppable
-    evaluation function (question 5).
 
-    DESCRIPTION: <write something here so we know what you did>
-    """
-    "*** YOUR CODE HERE ***"
     newPos = currentGameState.getPacmanPosition()
     newFood = currentGameState.getFood()
     newGhostStates = currentGameState.getGhostStates()
     newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
-
-    "*** YOUR CODE HERE ***"
-    # print(newGhostStates)
-    # Useful information you can extract from a GameState (pacman.py)
-    newPos = currentGameState.getPacmanPosition()
-    newFood = currentGameState.getFood()
-    newGhostStates = currentGameState.getGhostStates()
-    newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
-
-    "*** YOUR CODE HERE ***"
-    # 求出最近的鬼怪，计算危险值
     newGhostDists = [manhattanDistance(newPos, ghostState.configuration.pos) for ghostState in newGhostStates]
-    # 为了让吃豆人不要总是躲着鬼怪，我们只考虑距离2步以内的鬼怪造成的影响
-    # 为什么取-20？因为接下来我会把豆豆的启发值设置在10以内，两者相加一定为负数，这样就可以抵消豆豆对吃豆人的诱惑，^_^
-    # 为什么不是-10？因为如果下一步直接吃到豆豆，那个successorGameState.getScore()会算上吃到豆豆的10分
-    # dangerScore = -20 if nearestGhost < 2 else 0
     dangerScore = 0
-    # if min(newScaredTimes) > 0: dangerScore = 3/nearestGhost
     for i in range(len(newScaredTimes)):
         if newScaredTimes[i] == 0:
             score = -1000 if newGhostDists[i] < 2 else 0
         else:
             score = 500 / newGhostDists[i]
         dangerScore += score
-    # 如果豆豆还没有吃光，用最近的豆豆的坐标计算出一个启发值，优先考虑吃掉最近的豆豆
-    # 这个程序从字面上看，是用曼哈顿距离计算启发值，所以如果吃豆人和豆豆之间有墙的话……吃豆人就卡在墙后面了
-    # 但是，又因为有鬼怪的存在，它会驱动吃豆人离开卡死在墙后面的状态，勉强算是通过测试了
     if len(newFood.asList()) > 0:
         nearestFood = (min([manhattanDistance(newPos, food) for food in newFood.asList()]))
-        # 为什么启发值是“9/距离”呢？因为按照我的设计，这个值不能为负数，负数用来表示下一步可能遇到鬼怪
-        # 同时，因为吃到隔壁的豆豆得9分(移动需要扣1分)，且距离越远启发值越小，按照这些规则，我就设计了这样一个启发函数
-        # 如果下一个豆豆就在隔壁，距离为1，那么启发值为9，且距离放在分母，其值越大，启发值就越小，OK！
         foodHeuristic = 9 / (nearestFood)
     else:
         foodHeuristic = 0
 
-    # 把计算好的各种值加起来，并返回
     # print("Action:",action,"Score:",currentGameState.getScore(),"Danger:",dangerScore,"Food:",foodHeuristic,"Total:",currentGameState.getScore()+foodHeuristic+dangerScore)
     return currentGameState.getScore() + foodHeuristic + dangerScore
     util.raiseNotDefined()

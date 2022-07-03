@@ -53,6 +53,13 @@ def sentence1() -> Expr:
     (not A) or (not B) or C
     """
     "*** BEGIN YOUR CODE HERE ***"
+    A,B,C = Expr('A'),Expr('B'),Expr('C')
+    P1 = A | B
+    P2 = (~A) % ((~B) | C)
+    P3 = disjoin(~A,~B,C)
+    # import pdb; pdb.set_trace()
+    return conjoin([P1,P2,P3])
+
     util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
@@ -66,6 +73,12 @@ def sentence2() -> Expr:
     (not D) implies C
     """
     "*** BEGIN YOUR CODE HERE ***"
+    A,B,C,D = Expr('A'),Expr('B'),Expr('C'),Expr('D')
+    P1 = C % (B | D)
+    P2 = A >> (~B & ~D)
+    P3 = (~(B & (~C))) >> A
+    P4 = (~D ) >> C
+    return conjoin([P1,P2,P3,P4])
     util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
@@ -84,6 +97,7 @@ def sentence3() -> Expr:
     (Project update: for this question only, [0] and _t are both acceptable.)
     """
     "*** BEGIN YOUR CODE HERE ***"
+    PacmanAlive_0 = PropSymbolExpr('pacman',)
     util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
