@@ -2,6 +2,11 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/2021_OOP" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/CMU15-213" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/CS142" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/CS61C-su21" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/OS2021" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/deepul" vcs="Git" />
   </component>
 </project>

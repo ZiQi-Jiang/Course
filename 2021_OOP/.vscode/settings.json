@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "ostream": "cpp",
+        "string": "cpp",
+        "iomanip": "cpp",
+        "iostream": "cpp",
+        "algorithm": "cpp",
+        "utility": "cpp",
+        "queue": "cpp",
+        "list": "cpp",
+        "xtree": "cpp",
+        "iterator": "cpp",
+        "stack": "cpp",
+        "cmath": "cpp"
+    }
+}

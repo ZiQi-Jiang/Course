@@ -19,6 +19,8 @@ import time
 import environment
 import random
 
+
+
 class CrawlingRobotEnvironment(environment.Environment):
 
     def __init__(self, crawlingRobot):

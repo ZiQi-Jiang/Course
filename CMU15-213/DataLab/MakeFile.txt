@@ -1,0 +1,22 @@
+ 注释:#
+ 
+ 
+ 第一层:显式规则
+ 目标文件:依赖文件
+ [TAB]指令
+ eg: .c->.i  前者依赖文件,后者目标文件
+hello:hello.o
+	gcc hello.o -o hello
+	
+hello.o:hello.S
+	gcc -c hello.S -o hello.o
+	
+hello.S:hello.i
+	gcc -S hello.i -o hello.s
+	
+hello.i:hello.c
+	gcc -E hello.c -o hello.i
+
+
+	
+

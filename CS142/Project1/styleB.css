@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+div{
+    display: inline-block;
+    height: 150px;
+    width: 100px;
+    background-color: #eeeff2;
+    border-left: 10px dotted #D0D0FF;
+    font-family: Tahoma;
+    font-size: 40px;
+    padding-left: 10px;
+    margin-left:10px ;
+    white-space: nowrap;
+    
+}
+div:hover{
+    background-color:yellow ;
+    color: goldenrod;
+    cursor: pointer;
+}
+.F{
+    position:absolute;
+    right:0px;
+    bottom: 0px;
+}
