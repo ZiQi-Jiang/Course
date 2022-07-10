@@ -4,6 +4,7 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/2021_OOP" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/CMU15-213" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/CS131" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/CS142" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/CS61C-su21" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/OS2021" vcs="Git" />
